@@ -5,14 +5,12 @@ class Solution:
         res = []
         if pcount == scount:
             res.append(0)
-            
-        for i in range(len(p), len(s)):
+        psize = len(p)
+        ssize = len(s)
+        for i in range(psize, ssize):
             scount[s[i]] = scount.get(s[i], 0) + 1
-            scount[s[i-len(p)]]-= 1
+            scount[s[i-psize]]-= 1
             if pcount == scount:
-                res.append(i-len(p)+1)
-            if scount[s[i-len(p)]] == 0:
-                       del(scount[s[i-len(p)]])
-                    
+                res.append(i-psize+1)
         return res
         
