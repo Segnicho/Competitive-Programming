@@ -1,18 +1,12 @@
 class Solution:
     def numberOfSubarrays(self, nums: List[int], k: int) -> int:
-        for i in range(len(nums)):
-            if nums[i]%2 == 0:
-                nums[i] =0
-            else:nums[i] = 1
-        dikt = {0:1}
-        res = 0
-        prefSum =0
-        for num in nums:
+        res = [0 if num%2 == 0 else 1 for num in nums]
+        cnt = prefSum = 0
+        counter= Counter({0:1})
+        for num in res:
+            
             prefSum += num
-            res+=dikt.get(prefSum-k,0)
-            if prefSum not in dikt:
-                dikt[prefSum] = 1
-            else:
-                dikt[prefSum] += 1
-        return res
-       
+            cnt += counter.get(prefSum-k, 0)
+            counter[prefSum] = counter.get(prefSum,0)+1
+        del res
+        return cnt
