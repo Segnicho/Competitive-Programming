@@ -1,16 +1,13 @@
 class Solution:
     def generate(self, numRows: int) -> List[List[int]]:
         res = []
-        def dp(i, arr):
-            res.append(arr[:])
-            if i == len(arr):
-                return    
-            next_arr = [1]
-            for j in range(1, len(arr)):
-                next_arr.append(arr[j]+arr[j-1])       
-            next_arr.append(1)
-            return dp(i, next_arr)
-        dp(numRows, [1])
-        
+        for x in range(numRows):
+            temp = []
+            for y in range(0, x + 1):
+                if y in (0, x):
+                    temp.append(1)
+                else:
+                    temp.append(res[x-1][y-1] + res[x-1][y])
+            res.append(temp)
         return res
     
