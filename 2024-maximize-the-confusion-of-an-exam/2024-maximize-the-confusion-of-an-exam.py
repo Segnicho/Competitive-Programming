@@ -5,9 +5,8 @@ class Solution:
         left = 0
         for right in range(len(answerKey)):
             count[answerKey[right]] += 1
-            while min(count.values()) > k:
+            while count["F"] > k and count["T"] > k:
                 count[answerKey[left]] -= 1
                 left+=1
-            print(res)
             res = max(res, right-left+1)
         return res
