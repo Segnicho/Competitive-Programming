@@ -5,7 +5,6 @@ class Solution:
         for i in range(1, len(arr)):
             prefSum.append(prefSum[i-1] ^ arr[i])
         res = []
-        print(prefSum)
         for l, r in queries:
             if l == 0:
                 res.append(prefSum[r])
