@@ -5,16 +5,16 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:    
         def validBST(node):
             if not node:
-                return True
-            if not validBST(node.right):
+                return True  
+            if not validBST(node.left):
                 return False
-            if node.val >= self.prev:
+            if self.prev >= node.val:
                 return False
             self.prev = node.val
-            return validBST(node.left) 
-        self.prev = float("inf")
+            return validBST(node.right) 
+        self.prev = float("-inf")
         return validBST(root)
+    
