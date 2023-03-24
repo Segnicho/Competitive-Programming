@@ -17,7 +17,6 @@ class Solution:
                 elif ptr < len(arr) - k:
                     return quickSort(arr, ptr + 1, right)    
                 elif ptr > len(arr) - k:
-                    print(left, ptr-1)
                     return quickSort(arr, left, ptr - 1)
         d = quickSort(nums,0, len(nums) -1) 
         return d
