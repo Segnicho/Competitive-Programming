@@ -18,6 +18,4 @@ class Solution:
                     return quickSort(arr, ptr + 1, right)    
                 elif ptr > len(arr) - k:
                     return quickSort(arr, left, ptr - 1)
-        d = quickSort(nums,0, len(nums) -1) 
-        return d
-    
+        return quickSort(nums,0, len(nums) -1)
