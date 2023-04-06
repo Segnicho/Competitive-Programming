@@ -8,11 +8,11 @@ class Solution:
             graph[end].add(start)
         
         ans = 0
-        for node1 in graph:
-            for node2 in graph:
-                if node1 != node2:
-                    rank = len(graph[node1]) + len(graph[node2])
-                    if node1 in graph[node2]:
+        
+        for i in range(n):
+            for j in range(i+1, n):
+                    rank = len(graph[i]) + len(graph[j])
+                    if j in graph[i]:
                         rank -= 1
                     ans = max(ans, rank)
         return ans
