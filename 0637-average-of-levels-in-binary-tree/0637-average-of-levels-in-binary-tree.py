@@ -9,21 +9,17 @@ class Solution:
         res = []
         def bfs(node):
             queue = deque([node])            
-            
             while queue:
                 sm = 0
                 cnt = 0
-                n = len(queue)
                 for _ in range(len(queue)):
                     node = queue.popleft()
                     sm += node.val
                     cnt += 1
                     if node.left:
-                        neighbour = node.left
-                        queue.append(neighbour)
+                        queue.append(node.left)
                     if node.right:
-                        neighbour = node.right
-                        queue.append(neighbour)
+                        queue.append(node.right)
                 res.append(sm/cnt)
         bfs(root)
         return res
