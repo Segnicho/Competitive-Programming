@@ -5,8 +5,9 @@ class Solution:
         indegree = [0]*n
         visited = set()
         for i, num in enumerate(edges):
-            graph[i].append(num)
-            indegree[num] += 1
+            if num != -1:
+                graph[i].append(num)
+                indegree[num] += 1
         q  = []
         for i in range(n):
             if indegree[i] == 0:
@@ -17,30 +18,21 @@ class Solution:
                 visited.add(num)
                 for node in graph[num]:
                     indegree[node] -= 1
-                    if indegree[node] ==0:
+                    if indegree[node] == 0:
                         nextL.append(node)
             q = nextL        
         seen = set()
-
-        def dfs(i, start):
-            nonlocal cycle
-            if i in seen and i == start:
-                cycle = True
-                return
-            if i in seen:
-                return
-            seen.add(i)
-            for neigh in graph[i]:
-                dfs(neigh, start)
+        def dfs(node):
+            if not node in seen and node not in visited:
+                seen.add(node)
+                visited.add(node)
+                for neigh in graph[node]:
+                    dfs(neigh)
         mx = -1
         for i in range(n):
             if i not in visited:
                 seen = set()
-                cycle = False
-                dfs(i, i)
-                if cycle:
-                    visited |= seen
-                    mx = max(mx, len(seen))
-            visited.add(i)
+                dfs(i)
+                mx = max(mx, len(seen))
         return mx
                     
