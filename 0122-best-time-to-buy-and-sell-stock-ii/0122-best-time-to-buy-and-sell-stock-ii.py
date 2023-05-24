@@ -1,14 +1,11 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        @cache
-        def dp(i,canBuy):
-            if i == len(prices):
-                return 0
-            # can buy
-            if canBuy:
-                return max(dp(i + 1, False) - prices[i],dp(i + 1, True))
-            else:
-                return max(prices[i] + dp(i + 1, True),dp(i + 1, False))
-        return dp(0,True)
-            
-            
+        profit = 0
+        currProfit = 0
+        for i in range(1,len(prices)):
+            if prices[i] > prices[i-1]:
+                currProfit = prices[i] - prices[i-1]
+                profit+=currProfit
+        return profit 
+        
+        
