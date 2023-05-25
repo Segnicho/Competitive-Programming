@@ -17,4 +17,5 @@ class Solution:
             return res[i]
         for i in range(n):
             dfs(i)
-        return res
+        return res 
+          
