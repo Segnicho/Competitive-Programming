@@ -1,9 +1,8 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
         @cache
-        def hr(idx):
-            if idx >= len(nums):
+        def dp(i):
+            if i >=len(nums):
                 return 0
-            return max(nums[idx] + hr(idx+2), hr(idx+1))
-        return hr(0)
-    
+            return max(nums[i]+dp(i+2), dp(i+1))
+        return dp(0)
