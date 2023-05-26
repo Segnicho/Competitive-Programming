@@ -1,11 +1,10 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
         @cache
-        def recur(n):
-            if n == 1:
+        def dp(i):
+            if i == 1:
                 return 1
-            if n == 2:
+            elif  i == 2:
                 return 2
-            return recur(n-1) + recur(n-2)
-        return recur(n)
-    
+            return dp(i-2) + dp(i-1)
+        return dp(n)
