@@ -6,7 +6,6 @@
 #         self.right = right
 class Solution:
     def rob(self, root: Optional[TreeNode]) -> int:
-
         def dfs(node):
             if not node:
                 return (0, 0)
