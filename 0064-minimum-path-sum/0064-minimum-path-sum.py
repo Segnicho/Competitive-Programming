@@ -7,5 +7,5 @@ class Solution:
                 return grid[i][j]
             if i >= m or j >= n:
                 return float("inf")
-            return grid[i][j] + min(dp(i+1, j),  dp(i, j+1))
+            return min(grid[i][j] + dp(i+1, j), grid[i][j]+dp(i, j+1))
         return dp(0, 0)
