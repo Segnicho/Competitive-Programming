@@ -1,13 +1,10 @@
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
-        memo = defaultdict(int)
-        def dp(i, j):
-            if i == m-1 and n-1 == j:
-                return 1
-            if i > m-1 or j > n-1:
-                return 0
-            state = (i, j)
-            if state not in memo:
-                memo[state] = dp(i+ 1,  j) + dp(i , j+1) 
-            return memo[state]
-        return dp(0, 0)
+        res = [[0 for _ in range(n)] for i in range(m)]
+        res[0] = [1]*n
+        for i in range(m):
+            res[i][0] = 1
+        for i in range(1, m):
+            for j in range(1, n):
+                res[i][j] =  res[i-1][j] + res[i][j-1]
+        return res[m-1][n-1]
