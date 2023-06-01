@@ -1,14 +1,16 @@
 class Solution:
-    def longestPalindromeSubseq(self, text1: str) -> int:
-        text2 = text1[::-1]
-        m = len(text1)
-        n = len(text2)        
+    def longestPalindromeSubseq(self, s: str) -> int:
+        m = len(s)
+        if m == 1:
+            return 1
         @cache
-        def dp(i, j):
-            if i == m or j == n:
+        def dp(left, right):
+            if left > right:
                 return 0
-            if text1[i] == text2[j]:
-                return 1 + dp(i+1, j+1)
-            return max(dp(i+1, j), dp(i, j+1))
-        return dp(0, 0)
+            if left == right:
+                return 1
+            if s[left] == s[right]:
+                return 2 + dp(left+1, right-1)
+            return max(dp(left+1, right), dp(left, right-1))
+        return dp(0, m-1)
         
