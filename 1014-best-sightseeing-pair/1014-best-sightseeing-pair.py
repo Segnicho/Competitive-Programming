@@ -1,7 +1,8 @@
 class Solution:
     def maxScoreSightseeingPair(self, values: List[int]) -> int:
-        res = cur = 0
-        for num in values:
-            res = max(res, cur+num)
-            cur = max(num, cur) - 1
+        res = float("-inf")
+        left = values[0]
+        for i in range(1, len(values)):
+            res = max(res,left + values[i] - i )
+            left = max(left, values[i] + i)
         return res
