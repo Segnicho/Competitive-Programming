@@ -1,17 +1,22 @@
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        n = len(nums)
+        st = []
         res = []
-        def bt(i, curr):
-            res.append(curr[:])
-            if i >= len(nums):
+        def subsets(i= 0, temp=[]):
+            if i >= n:
+                ky = temp[:]
+                res.append(ky)
                 return
-            visited = set()
-            for j in range(i, len(nums)):
-                if nums[j] not in visited:
-                    visited.add(nums[j])
-                    curr.append(nums[j])
-                    bt(j+1, curr)
-                    curr.pop()
-        nums.sort()
-        bt(0, [])
+            temp.append(nums[i])
+            st.append(nums[i])
+            
+            subsets(i+1, temp)
+            temp.pop()
+            st.pop()
+            if nums[i] not in st:
+                subsets(i+1, temp)
+
+        subsets()
         return res
+    
