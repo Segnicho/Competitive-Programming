@@ -2,15 +2,13 @@ class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         n = len(nums)
         res = []
-        subset = []
-        def dfs(i):
+        def BT(i, temp):
             if i >= n:
-                res.append(subset[:])
-                return
-            subset.append(nums[i])
-            dfs(i+1)
-            
-            subset.pop()
-            dfs(i+1)
-        dfs(0)
+                res.append(temp[:])
+                return 
+            temp.append(nums[i])
+            BT(i+1, temp)
+            temp.pop()
+            BT(i+1, temp)
+        BT(0, [])
         return res
