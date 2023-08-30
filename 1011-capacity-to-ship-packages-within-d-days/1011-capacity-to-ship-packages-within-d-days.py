@@ -1,24 +1,24 @@
 class Solution:
     def shipWithinDays(self, weights: List[int], days: int) -> int:
         
-        mx = sum(weights)
-        mn = max(weights)
-        
-        def daysNeeded(weights, md):
-            dNeeded = 1
+        def calcDaysNeeded(md):
+            needed = 1
             curr = 0
-            for weight in weights:
+            for i, weight in enumerate(weights):
                 if curr + weight > md:
                     curr = 0
-                    dNeeded += 1
+                    needed += 1
                 curr += weight
-            return dNeeded
+            return needed
         
+        mn, mx = max(weights), sum(weights)
         while mn < mx:
-            md = (mn+mx)//2
-            req = daysNeeded(weights, md) 
-            if  req > days:
+            md = (mn + mx) //2
+            daysNeeded = calcDaysNeeded(md)
+            if daysNeeded > days:
                 mn = md + 1
             else:
-                mx = md 
+                mx =   md
         return mn
+                
+                
