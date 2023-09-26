@@ -2,7 +2,7 @@ class Solution:
     def isSubsequence(self, s: str, t: str) -> bool:
         m = len(s)
         n = len(t)
-        @cache
+        # @cache
         def dp(i, j):
             if i >= m:
                 return True
