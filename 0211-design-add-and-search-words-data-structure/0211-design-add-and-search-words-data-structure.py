@@ -25,10 +25,9 @@ class WordDictionary:
                             return True
                 return False
             else:
-                return False
-        
+                return False        
         return helper(curr, 0)
-
+    
 class TrieNode:
     def __init__(self):
         self.children = {}
