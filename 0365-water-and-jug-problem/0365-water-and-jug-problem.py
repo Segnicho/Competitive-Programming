@@ -1,16 +1,17 @@
 class Solution:
     def canMeasureWater(self, jug1Capacity: int, jug2Capacity: int, target: int) -> bool:
-        st = set()
-        def dfs(sm):
-            if sm == target:
-                return True
-            if sm > jug1Capacity + jug2Capacity or sm < 0 or sm in st:
-                return False
-            st.add(sm)
-            return  dfs(sm + jug1Capacity) or \
-                    dfs(sm-jug1Capacity) or \
-                    dfs(sm + jug2Capacity) or \
-                    dfs(sm-jug2Capacity)
+        q = deque([0])
         
-        return dfs(0)
-    
+        choices = [-jug1Capacity, jug1Capacity, -jug2Capacity, jug2Capacity]
+        visited = set()
+        while q:
+            curr = q.popleft()
+            for option in choices:
+                tot = curr + option
+                if tot == target:
+                    return True 
+                if tot not in visited and 0<tot<jug1Capacity + jug2Capacity:
+                    visited.add(tot)
+                    q.append(tot)
+        
+        return False
