@@ -3,13 +3,18 @@ class Solution:
         m = len(nums1)
         n = len(nums2)
         
-        @cache
         def dp(i, j):
             if i >= m or j >= n:
                 return 0
+            if (i, j) in memo:
+                return memo[(i, j)]
+            
             if nums1[i] == nums2[j]:
-                return 1 + dp(i+1, j+1)
+                memo[(i, j)] =  1 + dp(i+1, j+1)
             else:
-                return max(dp(i, j+1), dp(i+1, j))
+                memo[(i, j)] = max(dp(i, j+1), dp(i+1, j))
+            return memo[(i, j)]
         
+        memo = {}
         return dp(0, 0)
+    
