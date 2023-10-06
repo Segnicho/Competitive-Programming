@@ -1,29 +1,28 @@
 class Solution:
     def checkIfPrerequisite(self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
-        
         indegree = [0]*numCourses
         graph = defaultdict(list)
-        for u, v in prerequisites:
-            graph[u].append(v)
-            indegree[v] += 1
         q = deque()
+        
+        for a, b in prerequisites:
+            indegree[b] += 1
+            graph[a].append(b)
+        
         for i in range(numCourses):
             if indegree[i] == 0:
                 q.append(i)
-        res = []
-        i = 0
-        dikt = Counter()
         parents = defaultdict(set)
+        dikt = {}
+        i = 0
         while q:
             i += 1
             for _ in range(len(q)):
                 node = q.popleft()
                 dikt[node] = i
-                res.append(node)
                 for neigh in graph[node]:
                     parents[neigh].add(node)
-                    parents[neigh] |= parents[node]
                     indegree[neigh] -= 1
+                    parents[neigh] |= parents[node]
                     if indegree[neigh] == 0:
                         q.append(neigh)
         ans = []
