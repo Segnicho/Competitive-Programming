@@ -19,4 +19,3 @@ class Solution:
             else:
                 return left or right
         return recur(root)
-    
