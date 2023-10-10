@@ -6,10 +6,12 @@
 #         self.right = right
 class Solution:
     def flipEquiv(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
-        def dfs(rt1 = root1, rt2 = root2):
-            if not rt1 or not rt2:
-                return rt1 == rt2 == None
-            return rt1.val == rt2.val and (dfs(rt1.left, rt2.left) and            dfs(rt1.right, rt2.right) or dfs(rt1.left, rt2.right) and             dfs(rt1.right, rt2.left))
-        
-        return dfs()
+        def rec(root1, root2):
+            if not root1  and not root2:
+                return True
+            if (root1 and not root2) or (not root1 and root2):
+                return False
+            return root1.val == root2.val and rec(root1.left, root2.right) and rec(root1.right, root2.left) or (root1.val == root2.val and rec(root1.left, root2.left) and rec(root1.right, root2.right))
     
+    
+        return rec(root1, root2)
