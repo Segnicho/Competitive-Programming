@@ -2,24 +2,29 @@ class MinStack:
 
     def __init__(self):
         self.stack = []
-        self.mins = []
+        self.heap = []
+        self.elements = defaultdict(int)
     def push(self, val: int) -> None:
-        if not self.mins:
-            self.mins.append(val)
-        elif self.stack and val <= self.mins[-1]:
-            self.mins.append(val)
         self.stack.append(val)
-            
+        self.elements[val] += 1
+        heappush(self.heap, val)
     def pop(self) -> None:
-        val = self.stack.pop()
-        if val == self.mins[-1]:
-            self.mins.pop()
-    def top(self) -> int:
-        return self.stack[-1]    
+
+        self.elements[self.stack[-1]] -= 1
+        self.stack.pop()
     
+    def top(self) -> int:
+        return self.stack[-1]
+
     def getMin(self) -> int:
-        return self.mins[-1]
         
+        if self.elements[self.heap[0]] > 0:
+            return self.heap[0]
+        else:
+            while self.elements[self.heap[0]] <= 0:
+                heappop(self.heap)
+            return self.heap[0]
+
 # Your MinStack object will be instantiated and called as such:
 # obj = MinStack()
 # obj.push(val)
