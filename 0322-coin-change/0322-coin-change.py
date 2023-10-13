@@ -1,23 +1,13 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        if amount == 0:
-            return 0
-        q = deque()
-        coins.sort(reverse = True)
-        dikt = defaultdict(int)
-        for num in coins:
-            if amount - num >=0:
-                q.append((amount- num, 1))
-                dikt[amount- num] = 1
-
-        while q:
-            leftCoins, step = q.popleft()
-            if leftCoins == 0:
-                return step
-            for i, num in enumerate(coins):
-                if leftCoins -num >= 0 and leftCoins-num not in dikt:
-                    q.append((leftCoins - num, step+1))
-                    dikt[leftCoins-num] = step+1
         
-        return -1
-                
+        dp = [float("inf")] * (amount+1)
+        dp[0] = 0
+        for i in range(1, amount+1):
+            for coin in coins:
+                if i -coin >=0:
+                    dp[i] = min(dp[i], dp[i-coin] + 1)
+                    
+        return dp[amount] if dp[amount] != float(inf) else -1
+        
+        
