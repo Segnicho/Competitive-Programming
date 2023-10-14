@@ -1,24 +1,38 @@
 class Solution:
     def findCircleNum(self, isConnected: List[List[int]]) -> int:
-        adjList = defaultdict(list)
+        res = 0
         n = len(isConnected)
-        for i in range(n):
-            for j in range(i+1,n):
-                if isConnected[i][j]:
-                    adjList[i].append(j)
-                    adjList[j].append(i)  
+        uf = UnionFind(n)
         
-        visited = [0]*(n)     
-        components = 0
-        for node in range(n):
-            if not visited[node]:
-                components += 1
-                self.dfs(node, -1, visited, adjList)
-            
-        return components     
+        for i in range(n):
+            for j in range(i+1, n):
+                if isConnected[i][j]:
+                    uf.union(i, j)
+                    
+        return uf.components
     
-    def dfs(self,node, parent, visited, adjList):
-        visited[node] += 1
-        for neigh in adjList[node]:
-            if not visited[neigh] and neigh != parent:
-                self.dfs(neigh,node, visited, adjList)
+class UnionFind:
+    def __init__(self, size):
+        self.parent = [i for i in range(size)]
+        self.rank = [1]* size
+        self.components = size
+    
+    def find(self, node):
+        while node != self.parent[node]:
+            self.parent[node] = self.parent[self.parent[node]]
+            node = self.parent[node]
+        return self.parent[node]
+    def union(self, u, v):
+        parentu = self.find(u)
+        parentv = self.find(v) 
+        if parentu == parentv: 
+            return 0
+        
+        if self.rank[parentu] < self.rank[parentv]:
+            self.parent[parentv] = parentu
+            self.rank[parentu] += self.rank[parentv]
+        else:
+            self.parent[parentu] = parentv
+            self.rank[parentv] += self.rank[parentu]
+        self.components -= 1
+        return 1
