@@ -1,14 +1,14 @@
 class Solution:
     def getRow(self, rowIndex: int) -> List[int]:
-        
-        def dp(i, arr):
-            if i == len(arr) - 1:
-                return arr
+        res = [[1], [1, 1]]
+        for _ in range(1, rowIndex):
+            curr = []
+            upper = res[-1]
+            curr.append(upper[0])
+            for i in range(1, len(upper)):
+                curr.append(upper[i-1] + upper[i])
             
-            next_arr = [1]
-            for j in range(1, len(arr)):
-                next_arr.append(arr[j]+arr[j-1])       
-            next_arr.append(1)
-            return dp(i, next_arr)
-        return dp(rowIndex, [1])
-        
+            curr.append(upper[-1])
+            res.append(curr)
+
+        return res[rowIndex]
