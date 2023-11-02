@@ -6,19 +6,20 @@
 #         self.right = right
 class Solution:
     def averageOfSubtree(self, root: Optional[TreeNode]) -> int:
-        
-        def recur(root):
-            if not root:
-                return [0, 0]
-            
-            left = recur(root.left)
-            right = recur(root.right) 
-            
-            avg = (left[0] + right[0] + root.val)//(left[1] + right[1] + 1)
-            if avg  == root.val:
-                self.res += 1
-            return [left[0] + right[0] + root.val, left[1] + right[1] + 1]
-        
         self.res = 0
-        recur(root)
+        
+        def dfs(node):
+            if not node:
+                return 0, 0
+            
+            left = dfs(node.left)
+            right = dfs(node.right)
+            
+            lcount, rcount = left[1] , right[1]
+            lsum, rsum = left[0], right[0]
+            
+            if (lsum + rsum + node.val)//(lcount+rcount+1) == node.val:
+                self.res += 1
+            return node.val + left[0]+right[0] , 1 + left[1] + right[1]
+        dfs(root)
         return self.res
