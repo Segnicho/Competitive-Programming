@@ -20,6 +20,7 @@ class Solution:
             
             if (lsum + rsum + node.val)//(lcount+rcount+1) == node.val:
                 self.res += 1
-            return node.val + left[0]+right[0] , 1 + left[1] + right[1]
+                
+            return node.val + lsum + rsum , 1 + lcount + rcount
         dfs(root)
         return self.res
